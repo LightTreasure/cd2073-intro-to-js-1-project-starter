@@ -122,7 +122,20 @@ const cartTotal = function () {
   return totalCost;
 };
 
+/* totalPaid keeps track of the cash amount the customer has paid so far
+  - Initialized to a value of 0
+  - function pay() updates this variable
+*/
+let totalPaid = 0;
+
 /* Create a function called emptyCart that empties the products from the cart */
+const emptyCart = function () {
+  let item = cart.pop();
+  while (item !== undefined) {
+    item.quantity = 0;
+    item = cart.pop();
+  }
+};
 
 /* Create a function named pay that takes in an amount as an argument
   - amount is the money paid by customer
@@ -130,6 +143,10 @@ const cartTotal = function () {
   - pay will return a positive number if money should be returned to customer
   Hint: cartTotal function gives us cost of all the products in the cart
 */
+const pay = function(amount) {
+  totalPaid += amount;
+  return (totalPaid - cartTotal());
+};
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
 
