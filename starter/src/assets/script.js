@@ -1,6 +1,7 @@
 /* Create an array named products which you will use to add all of your product object literals that you create in the next step. */
+const products = [];
 
-/* Create 3 or more product objects using object literal notation 
+/* Create 3 or more product objects using object literal notation
    Each product should include five properties
    - name: name of product (string)
    - price: price of product (number)
@@ -14,6 +15,30 @@
    - orange.jpg by Mae Mu
    - strawberry.jpg by Allec Gomes
 */
+const cherryCarton = {
+  name: "Carton of Cherries",
+  price: 4.0,
+  quantity: 0,
+  productId: 421,
+  image: "images/cherry.jpg"
+};
+const strawberryCarton = {
+  name: "Carton of Strawberries",
+  price: 5.0,
+  quantity: 0,
+  productId: 422,
+  image: "images/strawberry.jpg"
+};
+const orangeBag = {
+  name: "Bag of Oranges",
+  price: 10.0,
+  quantity: 0,
+  productId: 423,
+  image: "images/orange.jpg"
+};
+products.push(cherryCarton);
+products.push(strawberryCarton);
+products.push(orangeBag);
 
 /* Declare an empty array named cart to hold the items in the cart */
 
@@ -52,13 +77,13 @@
   - amount is the money paid by customer
   - pay will return a negative number if there is a remaining balance
   - pay will return a positive number if money should be returned to customer
-  Hint: cartTotal function gives us cost of all the products in the cart  
+  Hint: cartTotal function gives us cost of all the products in the cart
 */
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
 
 
-/* The following is for running unit tests. 
+/* The following is for running unit tests.
    To fully complete this project, it is expected that all tests pass.
    Run the following command in terminal to run tests
    npm run test
@@ -72,7 +97,7 @@ module.exports = {
    decreaseQuantity,
    removeProductFromCart,
    cartTotal,
-   pay, 
+   pay,
    emptyCart,
    /* Uncomment the following line if completing the currency converter bonus */
    // currency
