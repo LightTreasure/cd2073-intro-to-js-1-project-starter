@@ -41,35 +41,86 @@ products.push(strawberryCarton);
 products.push(orangeBag);
 
 /* Declare an empty array named cart to hold the items in the cart */
+const cart = [];
 
 /* Create a function named addProductToCart that takes in the product productId as an argument
   - addProductToCart should get the correct product based on the productId
   - addProductToCart should then increase the product's quantity
   - if the product is not already in the cart, add it to the cart
 */
+const addProductToCart = function (productId) {
+  products.forEach(function (product) {
+    if (product.productId === productId) {
+      product.quantity++;
+      //Add productId to the cart if it's not already there
+      if (cart.indexOf(product) === -1) {
+        cart.push(product);
+      }
+    }
+  });
+};
 
 /* Create a function named increaseQuantity that takes in the productId as an argument
   - increaseQuantity should get the correct product based on the productId
   - increaseQuantity should then increase the product's quantity
 */
+const increaseQuantity = function (productId) {
+  products.forEach(function (product) {
+    if (product.productId === productId) {
+      product.quantity++;
+    }
+  });
+};
 
 /* Create a function named decreaseQuantity that takes in the productId as an argument
   - decreaseQuantity should get the correct product based on the productId
   - decreaseQuantity should decrease the quantity of the product
   - if the function decreases the quantity to 0, the product is removed from the cart
 */
+const decreaseQuantity = function (productId) {
+  products.forEach(function (product) {
+    if (product.productId === productId) {
+      // If this is the last quantity of the product, remove it from the cart
+      // altogether (this also changes the quantity to 0)
+      if (product.quantity === 1) {
+        removeProductFromCart(productId);
+      } else {
+        product.quantity--;
+      }
+    }
+  });
+};
 
 /* Create a function named removeProductFromCart that takes in the productId as an argument
   - removeProductFromCart should get the correct product based on the productId
   - removeProductFromCart should update the product quantity to 0
   - removeProductFromCart should remove the product from the cart
 */
+const removeProductFromCart = function (productId) {
+  products.forEach(function (product) {
+    if (product.productId === productId) {
+      product.quantity = 0;
+      let prodInx = cart.indexOf(product);
+      // Make sure the product is actually in the cart before removing it
+      if (prodInx !== -1) {
+        cart.splice(prodInx, 1);
+      }
+    }
+  });
+};
 
 /* Create a function named cartTotal that has no parameters
   - cartTotal should iterate through the cart to get the total cost of all products
   - cartTotal should return the total cost of the products in the cart
   Hint: price and quantity can be used to determine total cost
 */
+const cartTotal = function () {
+  let totalCost = 0;
+  cart.forEach(function (prod) {
+    totalCost += prod.quantity * prod.price;
+  });
+  return totalCost;
+};
 
 /* Create a function called emptyCart that empties the products from the cart */
 
