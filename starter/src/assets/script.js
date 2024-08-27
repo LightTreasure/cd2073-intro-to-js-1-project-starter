@@ -145,7 +145,12 @@ const emptyCart = function () {
 */
 const pay = function(amount) {
   totalPaid += amount;
-  return (totalPaid - cartTotal());
+  let due = cartTotal() - totalPaid;
+  if (due <= 0) {
+    // Return the extra cash back to the customer immediately
+    totalPaid = 0;
+  }
+  return (-1 * due);
 };
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
