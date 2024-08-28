@@ -1,38 +1,28 @@
 /* List of products offered by the store */
 const products = [];
 
-/* Objects representing individual products
-  - These objects serve three purposes:
+/* addProduct(prodName, prodPrice, prodId, prodImage)
+  - Creates a new product and adds it to the store's offerings
+  - Each product is represented by an object. These objects serve three purposes:
     1. Encapsulating the properties of the products (name, price, productId, and image)
-    2. Storing the quantity of each product in the customer's cart
+    2. Storing the quantity of each product in the customer's cart (initalized to 0)
     2. Tracking a product as it goes through store workflows (addition to cart, removal, price calculation, checkout)
 */
-const cherryCarton = {
-  name: "Carton of Cherries",
-  price: 4.0,
-  quantity: 0,
-  productId: 421,
-  image: "images/cherry.jpg"
-};
-const strawberryCarton = {
-  name: "Carton of Strawberries",
-  price: 5.0,
-  quantity: 0,
-  productId: 422,
-  image: "images/strawberry.jpg"
-};
-const orangeBag = {
-  name: "Bag of Oranges",
-  price: 10.0,
-  quantity: 0,
-  productId: 423,
-  image: "images/orange.jpg"
-};
+function addProductToStore(prodName, prodPrice, prodId, prodImage) {
+  const newProduct = {
+    name: prodName,
+    price: prodPrice,
+    quantity: 0,
+    productId: prodId,
+    image: prodImage
+  };
+  products.push(newProduct);
+}
 
-/* Add these products to the list of products offered by the store */
-products.push(cherryCarton);
-products.push(strawberryCarton);
-products.push(orangeBag);
+addProductToStore("Carton of Cherries", 4.0, 421, "images/cherry.jpg");
+addProductToStore("Carton of Strawberries", 5.0, 422, "images/strawberry.jpg");
+addProductToStore("Bag of Oranges", 10.0, 423, "images/orange.jpg");
+addProductToStore("Ea-nasir's Quality Copper Ingot", 150.0, 424, "images/copperingot.jpg");
 
 /* List of products the customer wants to purchase
   - Only represents if a certain product is in the customer's cart or not
@@ -40,32 +30,49 @@ products.push(orangeBag);
 */
 const cart = [];
 
+/* Returns the product object corresponding to productId. Returns undefined if no such product exists. */
+function getProductFromId(productId) {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].productId === productId) {
+      return products[i];
+    }
+  }
+  return undefined;
+}
+
+/* Does the store offer a product with this productId? */
+function isProductIdOffered(productId) {
+  return (getProductFromId(productId) !== undefined);
+}
+
+/* Is this product object in the cart? */
+function isProductInCart(product) {
+  return (cart.indexOf(product) !== -1);
+}
+
 /* addProductToCart(productId)
   - Finds the product corresponding to productId in the list of products offered by the store
   - If the product is offered, adds the product to the cart if not already present
   - Increments the product's quantity
 */
 function addProductToCart(productId) {
-  products.forEach(function (product) {
-    if (product.productId === productId) {
-      product.quantity++;
-      //Add productId to the cart if it's not already there
-      if (cart.indexOf(product) === -1) {
-        cart.push(product);
-      }
+  if (isProductIdOffered(productId)) {
+    const product = getProductFromId(productId);
+    product.quantity++;
+    if (!isProductInCart(product)) {
+      cart.push(product);
     }
-  });
+  }
 }
 
 /* increaseQuantity(productId)
   - Increments the quantity of the product corresponding to productId
 */
 function increaseQuantity(productId) {
-  products.forEach(function (product) {
-    if (product.productId === productId) {
-      product.quantity++;
-    }
-  });
+  if (isProductIdOffered(productId)) {
+    const product = getProductFromId(productId);
+    product.quantity++;
+  }
 }
 
 /* decreaseQuantity(productId)
@@ -73,17 +80,17 @@ function increaseQuantity(productId) {
   - If the quantity goes down to 0, removes the product from the cart
 */
 function decreaseQuantity(productId) {
-  products.forEach(function (product) {
-    if (product.productId === productId) {
-      // If this is the last quantity of the product, remove it from the cart
-      // altogether (this also changes the quantity to 0)
-      if (product.quantity === 1) {
-        removeProductFromCart(productId);
-      } else {
-        product.quantity--;
-      }
+  if (isProductIdOffered(productId)) {
+    const product = getProductFromId(productId);
+
+    // If this is the last quantity of the product, remove it from the cart
+    // altogether (this also changes the quantity to 0)
+    if (product.quantity === 1) {
+      removeProductFromCart(productId);
+    } else {
+      product.quantity--;
     }
-  });
+  }
 }
 
 /* removeProductFromCart(productId)
@@ -91,16 +98,16 @@ function decreaseQuantity(productId) {
   - Also decrements the quantity of the product to 0
 */
 function removeProductFromCart(productId) {
-  products.forEach(function (product) {
-    if (product.productId === productId) {
+  if (isProductIdOffered(productId)) {
+    const product = getProductFromId(productId);
+
+    // Make sure the product is actually in the cart before removing it
+    const prodInx = cart.indexOf(product);
+    if (prodInx !== -1) {
       product.quantity = 0;
-      let prodInx = cart.indexOf(product);
-      // Make sure the product is actually in the cart before removing it
-      if (prodInx !== -1) {
-        cart.splice(prodInx, 1);
-      }
+      cart.splice(prodInx, 1);
     }
-  });
+  }
 }
 
 /* cartTotal()
@@ -165,6 +172,6 @@ module.exports = {
    cartTotal,
    pay,
    emptyCart,
-   /* Uncomment the following line if completing the currency converter bonus */
+   // Uncomment the following line if completing the currency converter bonus
    // currency
 }
