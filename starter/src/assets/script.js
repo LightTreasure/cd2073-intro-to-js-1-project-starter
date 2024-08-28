@@ -133,10 +133,8 @@ function emptyCart() {
 
 /* pay(cashReceived)
   - Conducts a transaction
-    - If the customer paid more than the balance:
-      - Immediately gives back cash to the customer (sets totalPaid back to 0)
-    - Otherwise:
-      - Updates totalPaid by cashReceived
+    - If the customer paid more than the balance, immediately gives back cash to the customer (sets totalPaid back to 0)
+    - Otherwise updates totalPaid by cashReceived
   - Returns the amount due to the customer (negative if the customer has a balance)
 */
 function pay(cashReceived) {
