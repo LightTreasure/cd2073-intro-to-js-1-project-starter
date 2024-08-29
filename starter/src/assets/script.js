@@ -154,6 +154,7 @@ function pay(cashReceived) {
   if (dueToStore < 0) {
     // Return the extra cash back to the customer immediately
     totalPaid = 0;
+    emptyCart();
   }
   return -1 * dueToStore;
 }
