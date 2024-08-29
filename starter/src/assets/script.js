@@ -19,6 +19,13 @@ function addProductToStore(prodName, prodPrice, prodId, prodImage) {
   products.push(newProduct);
 }
 
+/* Add products to the store
+Image attributions:
+  - copperingot.jpg by Paul-Alain Hunt on Unsplash.com
+  - cherry.jpg by Mae Mu on Unsplash.com
+  - orange.jpg by Mae Mu on Unsplash.com
+  - strawberry.jpg by Allec Gomes on Unsplash.com
+*/
 addProductToStore("Carton of Cherries", 4.0, 421, "images/cherry.jpg");
 addProductToStore("Carton of Strawberries", 5.0, 422, "images/strawberry.jpg");
 addProductToStore("Bag of Oranges", 10.0, 423, "images/orange.jpg");
