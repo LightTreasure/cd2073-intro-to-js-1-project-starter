@@ -82,10 +82,9 @@ function increaseQuantity(productId) {
 function decreaseQuantity(productId) {
   if (isProductIdOffered(productId)) {
     const product = getProductFromId(productId);
-
-    // If this is the last quantity of the product, remove it from the cart
-    // altogether (this also changes the quantity to 0)
     if (product.quantity === 1) {
+      // If this is the last quantity of the product, remove it from the cart
+      // altogether (this also changes the quantity to 0)
       removeProductFromCart(productId);
     } else {
       product.quantity--;
@@ -100,10 +99,8 @@ function decreaseQuantity(productId) {
 function removeProductFromCart(productId) {
   if (isProductIdOffered(productId)) {
     const product = getProductFromId(productId);
-
-    // Make sure the product is actually in the cart before removing it
     const prodInx = cart.indexOf(product);
-    if (prodInx !== -1) {
+    if (prodInx !== -1) { // Make sure the product is actually in the cart before removing it
       product.quantity = 0;
       cart.splice(prodInx, 1);
     }
